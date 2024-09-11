@@ -1,0 +1,11 @@
+﻿<Application x:Class="TimekeepingApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:TimekeepingApp.Converters"
+             xmlns:local="clr-namespace:TimekeepingApp"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <!-- Register the converter here -->
+        <converters:SelectedItemToBoolConverter x:Key="SelectedItemToBoolConverter"/>
+    </Application.Resources>
+</Application>

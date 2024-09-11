@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="TimekeepingApp.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:helpers="clr-namespace:TimekeepingApp.Helpers"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="400">
+
+    <!-- Do not set DataContext here; handle it in code-behind or via a ViewModelLocator -->
+
+    <Grid Margin="20">
+        <StackPanel>
+            <TextBlock Text="Login to Submit Timesheet" FontSize="20" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+
+            <!-- Bind Username property with two-way binding and property changed updates -->
+            <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                     helpers:PlaceholderHelper.PlaceholderText="Enter your Username"
+                     Margin="100,0,100,10"/>
+
+            <!-- Use PasswordBox for secure password input -->
+            <PasswordBox x:Name="PasswordBox"
+                         Margin="100,0,100,10"
+                         PasswordChar="*"
+                         PasswordChanged="PasswordBox_PasswordChanged"
+                         helpers:PlaceholderHelper.PlaceholderText="Enter your password"/>
+
+            <!-- Correctly bind LoginCommand and set CommandParameter to DataContext of the MainWindow -->
+            <Button Content="Login" 
+                    Command="{Binding LoginCommand}"
+                    CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Margin="100,10,100,0"/>
+
+            <!-- Display StatusMessage from ViewModel -->
+            <TextBlock Text="{Binding StatusMessage}" Foreground="Red" Margin="0,10,0,0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="TimekeepingApp.Views.ManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid Margin="10">
+        <StackPanel>
+            <!-- DataGrid to display submitted timesheets -->
+            <DataGrid ItemsSource="{Binding Timesheets}"
+          SelectedItem="{Binding SelectedTimesheet}"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          Margin="0,0,0,10">
+                <DataGrid.Columns>
+                    <!-- Ensure this binding path matches your UserModel property for the employee's name -->
+                    <DataGridTextColumn Header="Employee Name" Binding="{Binding User.Username}" />
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date}" />
+                    <DataGridTextColumn Header="Time In" Binding="{Binding TimeIn}" />
+                    <DataGridTextColumn Header="Time Out" Binding="{Binding TimeOut}" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+            <!-- Approve and Reject buttons for managing timesheet entries -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
+                <Button Content="Approve"
+                        Command="{Binding ApproveCommand}"
+                        CommandParameter="{Binding SelectedTimesheet}"
+                        IsEnabled="{Binding SelectedTimesheet, Converter={StaticResource SelectedItemToBoolConverter}}"
+                        Margin="0,0,10,0"/>
+
+                <Button Content="Reject"
+                        Command="{Binding RejectCommand}"
+                        CommandParameter="{Binding SelectedTimesheet}"
+                        IsEnabled="{Binding SelectedTimesheet, Converter={StaticResource SelectedItemToBoolConverter}}"/>
+            </StackPanel>
+
+            <!-- Logout button added here -->
+            <Button Content="Logout"
+                    Command="{Binding LogoutCommand}"
+                    CommandParameter="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                    Margin="0,10,0,0"/>
+
+            <!-- Status message to display the result of actions -->
+            <TextBlock Text="{Binding StatusMessage}"
+                       Foreground="Green"
+                       Margin="0,10,0,0"
+                       TextAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
